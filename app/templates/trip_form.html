@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Trip' if trip_id else 'New Trip' }} · Fishing Atlas{% endblock %}
+{% block content %}
+<h1 class="page-title">{{ 'Edit Trip' if trip_id else 'New Trip' }}</h1>
+<div class="banner info">Entries save to this device instantly and sync when you're back online.</div>
+
+<form id="trip-form" data-trip-id="{{ trip_id or '' }}">
+  <fieldset>
+    <legend>Trip</legend>
+    <div class="field-row">
+      <div class="field"><label>Date *</label><input type="date" name="date" required /></div>
+      <div class="field"><label>Fishing type</label>
+        <select name="fishing_type">
+          <option value="">—</option>
+          {% for t in choices.fishing_types %}<option value="{{ t }}">{{ t }}</option>{% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Start time</label><input type="time" name="start_time" /></div>
+      <div class="field"><label>End time</label><input type="time" name="end_time" /></div>
+    </div>
+    <div class="field"><label>Water body</label>
+      <input name="water_body" list="dl-water" placeholder="e.g. Little River" />
+      <datalist id="dl-water">{% for w in choices.water_bodies %}<option value="{{ w }}">{% endfor %}</datalist>
+    </div>
+    <div class="field"><label>Access point</label><input name="access_point" placeholder="e.g. Townsend Y" /></div>
+    <div class="field"><label>General location</label><input name="general_location" placeholder="Stretch / landmark" /></div>
+    <div class="field"><label>Target species</label>
+      <input name="target_species" list="dl-species" />
+      <datalist id="dl-species">{% for s in choices.species %}<option value="{{ s }}">{% endfor %}</datalist>
+    </div>
+    <div class="field"><label>Species caught</label><input name="species_caught" list="dl-species" /></div>
+    <div class="field-row">
+      <div class="field"><label># Fish caught</label><input type="number" name="fish_count" min="0" inputmode="numeric" /></div>
+      <div class="field"><label>Largest fish</label><input name="largest_fish" placeholder='e.g. 14" smallmouth' /></div>
+    </div>
+    <div class="field"><label>Notes</label><textarea name="notes"></textarea></div>
+    <div class="field"><label>Photos</label><input type="file" id="trip-photos" accept="image/*" multiple capture="environment" /></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Conditions</legend>
+    <div class="field-row">
+      <div class="field"><label>Air temp (°F)</label><input type="number" name="air_temp" inputmode="decimal" /></div>
+      <div class="field"><label>Water temp (°F)</label><input type="number" name="water_temp" inputmode="decimal" /></div>
+    </div>
+    <div class="field"><label>Weather</label><input name="weather" placeholder="e.g. sunny, light rain" /></div>
+    <div class="field-row">
+      <div class="field"><label>Cloud cover</label>
+        <select name="cloud_cover"><option value="">—</option>{% for c in choices.cloud_cover %}<option>{{ c }}</option>{% endfor %}</select>
+      </div>
+      <div class="field"><label>Wind</label><input name="wind" placeholder="e.g. 5–10 mph SW" /></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Water clarity</label>
+        <select name="water_clarity"><option value="">—</option>{% for c in choices.water_clarity %}<option>{{ c }}</option>{% endfor %}</select>
+      </div>
+      <div class="field"><label>Water level</label>
+        <select name="water_level"><option value="">—</option>{% for l in choices.water_levels %}<option>{{ l }}</option>{% endfor %}</select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Flow (optional)</label><input name="flow" placeholder="e.g. 220 CFS" /></div>
+      <div class="field"><label>Recent rain</label><input name="recent_rain" placeholder="e.g. 0.5in yesterday" /></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Moon phase (optional)</label>
+        <select name="moon_phase"><option value="">—</option>{% for m in choices.moon_phases %}<option>{{ m }}</option>{% endfor %}</select>
+      </div>
+      <div class="field"><label>Hatch / insects (optional)</label><input name="hatch" placeholder="e.g. caddis" /></div>
+    </div>
+  </fieldset>
+
+  <div class="btn-row">
+    <button type="submit" class="btn primary">Save trip</button>
+    <a href="/trips" class="btn secondary">Cancel</a>
+  </div>
+</form>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/trip_form.js') }}"></script>{% endblock %}

@@ -1,0 +1,33 @@
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# flask instance folder (sqlite db, uploads, secrets)
+instance/
+
+# database
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# local env files
+.env
+.env*.local
+
+# uploads (user photos persisted via docker volume)
+/app/static/uploads/*
+!/app/static/uploads/.gitkeep
+
+# editor / os
+.DS_Store
+.vscode/
+.idea/
+*.swp

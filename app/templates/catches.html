@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Catches · Fishing Atlas{% endblock %}
+{% block content %}
+<h1 class="page-title">Catches</h1>
+<div class="filters">
+  <input id="f-species" placeholder="Species" />
+  <input id="f-bait" placeholder="Fly / lure / bait" />
+</div>
+<div id="catch-list"><p class="muted">Loading…</p></div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/catches.js') }}"></script>{% endblock %}

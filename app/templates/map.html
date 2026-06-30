@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Map · Fishing Atlas{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='vendor/leaflet/leaflet.css') }}" />{% endblock %}
+{% block content %}
+<h1 class="page-title">Map Atlas</h1>
+
+<div class="filters">
+  <input id="f-species" placeholder="Species" />
+  <input id="f-water" placeholder="Water body" />
+  <select id="f-spot"><option value="">Any spot type</option>{% for s in choices.spot_types %}<option>{{ s }}</option>{% endfor %}</select>
+  <select id="f-conf">
+    <option value="">Any confidence</option>
+    {% for n in [5,4,3,2,1] %}<option value="{{ n }}">{{ n }}★ and up</option>{% endfor %}
+  </select>
+</div>
+
+<div class="btn-row">
+  <button class="btn primary" id="add-pin-btn">📍 Add pin (tap map)</button>
+  <button class="btn secondary" id="locate-btn">Use my location</button>
+</div>
+
+<div id="map"></div>
+<p class="muted center" style="margin-top:8px">Tiles cache as you browse, so viewed areas work offline.</p>
+
+<!-- Pin form panel -->
+<div id="pin-panel" class="card" style="display:none">
+  <h3 id="pin-panel-title">New pin</h3>
+  <form id="pin-form">
+    <input type="hidden" name="id" />
+    <div class="field"><label>Pin name *</label><input name="name" required /></div>
+    <div class="field-row">
+      <div class="field"><label>Latitude *</label><input name="latitude" required inputmode="decimal" /></div>
+      <div class="field"><label>Longitude *</label><input name="longitude" required inputmode="decimal" /></div>
+    </div>
+    <div class="field"><label>Water body</label><input name="water_body" list="dl-water" /></div>
+    <datalist id="dl-water">{% for w in choices.water_bodies %}<option value="{{ w }}">{% endfor %}</datalist>
+    <div class="field"><label>Access point</label><input name="access_point" /></div>
+    <div class="field-row">
+      <div class="field"><label>Spot type</label>
+        <select name="spot_type"><option value="">—</option>{% for s in choices.spot_types %}<option>{{ s }}</option>{% endfor %}</select>
+      </div>
+      <div class="field"><label>Confidence</label>
+        <select name="confidence">{% for n in [3,1,2,4,5] %}<option value="{{ n }}">{{ n }} ★</option>{% endfor %}</select>
+      </div>
+    </div>
+    <div class="field"><label>Primary species</label><input name="primary_species" list="dl-species" /></div>
+    <datalist id="dl-species">{% for s in choices.species %}<option value="{{ s }}">{% endfor %}</datalist>
+    <div class="field"><label>Notes</label><textarea name="notes"></textarea></div>
+    <div class="field row" style="align-items:center;gap:8px">
+      <input type="checkbox" id="pin-public" name="is_public" style="width:auto" />
+      <label for="pin-public" style="margin:0">Public (default private)</label>
+    </div>
+    <div class="btn-row">
+      <button type="submit" class="btn primary">Save pin</button>
+      <button type="button" class="btn secondary" id="pin-cancel">Cancel</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='vendor/leaflet/leaflet.js') }}"></script>
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+{% endblock %}

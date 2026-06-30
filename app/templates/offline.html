@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Offline · Fishing Atlas{% endblock %}
+{% block content %}
+<div class="empty">
+  <div style="font-size:54px">🎣</div>
+  <h1 class="page-title">You're offline</h1>
+  <p class="muted">This page hasn't been cached yet, but the core pages still work without a signal.</p>
+  <p class="muted">Anything you log is saved on your phone and syncs automatically when you're back online.</p>
+  <div class="btn-row" style="max-width:420px;margin:18px auto">
+    <a class="btn primary" href="/trips/new">Log a trip</a>
+    <a class="btn secondary" href="/">Dashboard</a>
+  </div>
+  <div class="row" style="justify-content:center;gap:10px">
+    <a class="btn small secondary" href="/trips">Trips</a>
+    <a class="btn small secondary" href="/map">Map</a>
+    <a class="btn small secondary" href="/pins">Pins</a>
+    <a class="btn small secondary" href="/catches">Catches</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Pins · Fishing Atlas{% endblock %}
+{% block content %}
+<h1 class="page-title">Pins</h1>
+<div class="filters">
+  <input id="f-species" placeholder="Species" />
+  <input id="f-water" placeholder="Water body" />
+  <select id="f-spot"><option value="">Any spot type</option>{% for s in choices.spot_types %}<option>{{ s }}</option>{% endfor %}</select>
+  <select id="f-conf"><option value="">Any confidence</option>{% for n in [5,4,3,2,1] %}<option value="{{ n }}">{{ n }}★ and up</option>{% endfor %}</select>
+</div>
+<div id="pin-list"><p class="muted">Loading…</p></div>
+<a class="fab" href="/map" aria-label="Add pin on map">+</a>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/pins.js') }}"></script>{% endblock %}

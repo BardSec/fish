@@ -1,0 +1,15 @@
+.git
+.gitignore
+.venv
+venv
+__pycache__
+*.pyc
+instance
+*.db
+*.sqlite*
+node_modules
+.env
+.env.*
+README.md
+app/static/uploads/*
+!app/static/uploads/.gitkeep

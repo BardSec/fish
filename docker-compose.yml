@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=${SECRET_KEY:-change-me-in-production}
+      # SQLite database file lives on the named volume mounted at /app/instance.
+      - DATABASE_URL=sqlite:////app/instance/fishing_atlas.db
+      - UPLOAD_FOLDER=/app/app/static/uploads
+      # Load East TN sample data on first boot (set to 0 to disable, force to reseed).
+      - AUTO_SEED=${AUTO_SEED:-1}
+      # Optional map overrides (defaults to OpenStreetMap, no key required).
+      - MAP_TILE_URL=${MAP_TILE_URL:-https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png}
+    volumes:
+      - atlas-data:/app/instance
+      - atlas-uploads:/app/app/static/uploads
+    restart: unless-stopped
+
+volumes:
+  atlas-data:
+  atlas-uploads:

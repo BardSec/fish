@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Settings · Fishing Atlas{% endblock %}
+{% block content %}
+<h1 class="page-title">Settings</h1>
+
+<div class="card">
+  <h3>Appearance</h3>
+  <div class="field"><label>Theme</label>
+    <select id="theme-select"><option value="dark">Dark</option><option value="light">Light</option></select>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Sync</h3>
+  <p id="sync-info" class="muted">…</p>
+  <div class="btn-row">
+    <button class="btn primary" id="sync-now">Sync now</button>
+    <button class="btn secondary" id="refresh-snapshot">Reload from server</button>
+  </div>
+  <div id="queue-errors"></div>
+</div>
+
+<div class="card">
+  <h3>Conflicts</h3>
+  <div id="conflicts"><p class="muted">None.</p></div>
+</div>
+
+<div class="card">
+  <h3>Data</h3>
+  <p class="muted">Export a JSON backup of everything on the server, or clear this device's local cache (queued-but-unsynced changes will be lost).</p>
+  <div class="btn-row">
+    <button class="btn secondary" id="export">Export JSON</button>
+    <button class="btn danger" id="clear-local">Clear local cache</button>
+  </div>
+</div>
+
+<div class="card">
+  <h3>About</h3>
+  <p class="muted">Fishing Atlas — an offline-first PWA. Add it to your home screen for full-screen, offline use. Map data © OpenStreetMap contributors.</p>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/settings.js') }}"></script>{% endblock %}

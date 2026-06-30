@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Trips · Fishing Atlas{% endblock %}
+{% block content %}
+<h1 class="page-title">Trips</h1>
+
+<div class="filters">
+  <input class="full" id="f-q" placeholder="Search notes, location, weather…" />
+  <input id="f-species" placeholder="Species" />
+  <input id="f-water" placeholder="Water body" />
+  <input id="f-bait" placeholder="Fly / lure" />
+  <input id="f-weather" placeholder="Weather" />
+  <input id="f-from" type="date" />
+  <input id="f-to" type="date" />
+  <button class="btn small full secondary" id="f-clear">Clear filters</button>
+</div>
+
+<div id="trip-list"><p class="muted">Loading…</p></div>
+<a class="fab" href="/trips/new" aria-label="New trip">+</a>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/trips.js') }}"></script>{% endblock %}

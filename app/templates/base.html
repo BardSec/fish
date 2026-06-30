@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f1720" />
+  <title>{% block title %}Fishing Atlas{% endblock %}</title>
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192.png') }}" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="app-header">
+    <a href="/" class="brand">🎣 Fishing Atlas</a>
+    <div class="header-right">
+      <span id="sync-status" class="sync-badge" title="Sync status">…</span>
+      <a href="/settings" class="icon-btn" aria-label="Settings">⚙️</a>
+    </div>
+  </header>
+
+  <main class="app-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <nav class="tabbar">
+    <a href="/" class="tab {{ 'active' if active=='dashboard' }}"><span>📊</span>Home</a>
+    <a href="/trips" class="tab {{ 'active' if active=='trips' }}"><span>📒</span>Trips</a>
+    <a href="/map" class="tab {{ 'active' if active=='map' }}"><span>🗺️</span>Map</a>
+    <a href="/pins" class="tab {{ 'active' if active=='pins' }}"><span>📍</span>Pins</a>
+    <a href="/catches" class="tab {{ 'active' if active=='catches' }}"><span>🐟</span>Catches</a>
+  </nav>
+
+  <script>
+    // Map + app configuration handed from the server to client scripts.
+    window.MAP_CONFIG = {{ MAP_CONFIG | tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='js/db.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sync.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

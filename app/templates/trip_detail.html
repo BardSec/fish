@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Trip · Fishing Atlas{% endblock %}
+{% block content %}
+<div id="trip-detail" data-trip-id="{{ trip_id }}"><p class="muted">Loading…</p></div>
+
+<div class="card">
+  <h3>Log a catch</h3>
+  <form id="catch-form">
+    <div class="field-row">
+      <div class="field"><label>Species *</label><input name="species" list="dl-species" required /></div>
+      <div class="field"><label>Length (in)</label><input type="number" step="0.1" name="length" inputmode="decimal" /></div>
+    </div>
+    <datalist id="dl-species">{% for s in choices.species %}<option value="{{ s }}">{% endfor %}</datalist>
+    <div class="field-row">
+      <div class="field"><label>Time caught</label><input type="time" name="time_caught" /></div>
+      <div class="field"><label>Fly / lure / bait</label><input name="bait" /></div>
+    </div>
+    <div class="field"><label>Presentation notes</label><input name="presentation" placeholder="e.g. dead drift, deep" /></div>
+    <div class="field-row">
+      <div class="field"><label>Depth / water type</label><input name="water_type" placeholder="e.g. riffle, 3ft" /></div>
+      <div class="field"><label>Kept?</label>
+        <select name="kept"><option value="false">Released</option><option value="true">Kept</option></select>
+      </div>
+    </div>
+    <div class="field"><label>Tie to map pin (optional)</label>
+      <select name="map_pin_id" id="catch-pin"><option value="">— none —</option></select>
+    </div>
+    <div class="field"><label>Notes</label><textarea name="notes"></textarea></div>
+    <div class="field"><label>Photo</label><input type="file" id="catch-photo" accept="image/*" capture="environment" /></div>
+    <button type="submit" class="btn primary">Add catch</button>
+  </form>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/trip_detail.js') }}"></script>{% endblock %}

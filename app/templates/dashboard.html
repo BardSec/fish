@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · Fishing Atlas{% endblock %}
+{% block content %}
+<h1 class="page-title">Dashboard</h1>
+<div id="stale-banner"></div>
+
+<div class="grid" id="stats">
+  <div class="card stat"><div class="big" id="stat-trips">–</div><div class="lbl">Trips</div></div>
+  <div class="card stat"><div class="big" id="stat-fish">–</div><div class="lbl">Fish caught</div></div>
+  <div class="card stat"><div class="big" id="stat-pins">–</div><div class="lbl">Map pins</div></div>
+  <div class="card stat"><div class="big" id="stat-catches">–</div><div class="lbl">Logged catches</div></div>
+</div>
+
+<div class="btn-row">
+  <a class="btn primary" href="/trips/new">+ New Trip</a>
+  <a class="btn secondary" href="/map">Open Map</a>
+</div>
+
+<div id="rank-cards"></div>
+
+<div class="card">
+  <h3>Recent trips</h3>
+  <div id="recent-trips"><p class="muted">Loading…</p></div>
+</div>
+
+<div class="card">
+  <h3>Most productive pins</h3>
+  <div id="productive-pins"><p class="muted">Loading…</p></div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>{% endblock %}
