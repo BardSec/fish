@@ -18,7 +18,7 @@
       </div>
       <div class="muted">${escapeHtml(t.general_location || '')}</div>
       <div style="margin-top:6px">
-        ${t.fishing_type ? `<span class="pill accent">${escapeHtml(t.fishing_type)}</span>` : ''}
+        ${(t.fishing_type || '').split(',').map(s => s.trim()).filter(Boolean).map(ft => `<span class="pill accent">${escapeHtml(ft)}</span>`).join('')}
         <span class="pill">${t.fish_count || 0} fish</span>
         ${t.weather ? `<span class="pill">${escapeHtml(t.weather)}</span>` : ''}
       </div>

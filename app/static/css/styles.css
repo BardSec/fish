@@ -118,6 +118,19 @@ fieldset { border: 1px solid var(--border); border-radius: var(--radius);
   padding: 14px; margin: 0 0 16px; }
 legend { padding: 0 8px; color: var(--text-dim); font-size: 13px; font-weight: 600; }
 
+/* Multi-select chips (e.g. fishing type) */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label {
+  display: inline-flex; align-items: center; gap: 7px; margin: 0;
+  padding: 8px 13px; border: 1px solid var(--border); border-radius: 999px;
+  background: var(--bg); color: var(--text); font-size: 15px; cursor: pointer;
+  user-select: none; transition: border-color .12s, color .12s, background .12s;
+}
+.chips input[type="checkbox"] { width: auto; margin: 0; accent-color: var(--accent); }
+.chips label:has(input:checked) {
+  border-color: var(--accent); color: var(--accent); background: var(--bg-elev2);
+}
+
 /* Filters bar */
 .filters { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
 .filters input, .filters select { padding: 9px 10px; font-size: 14px; }

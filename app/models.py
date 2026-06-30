@@ -100,7 +100,10 @@ class Trip(TimestampMixin, db.Model):
     water_body_id = db.Column(db.String(36), db.ForeignKey("water_bodies.id"))
     access_point = db.Column(db.String(160))
     general_location = db.Column(db.String(240))
-    fishing_type = db.Column(db.String(40))  # fly, spin, tenkara, bait, kayak, wade, bank
+    # One or more of FISHING_TYPES, stored comma-separated (e.g. "fly,tenkara").
+    # Kept as a plain string so the offline sync engine treats it like any other
+    # field; a single value (legacy data) is a valid one-item list.
+    fishing_type = db.Column(db.String(120))
     target_species = db.Column(db.String(240))
     species_caught = db.Column(db.String(240))
     fish_count = db.Column(db.Integer, default=0)

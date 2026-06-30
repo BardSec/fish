@@ -48,6 +48,17 @@ def test_trip_and_catch_crud_with_uuid(client):
     assert len(data(client.get(f"/api/catches?trip_id={tid}"))) == 0
 
 
+def test_trip_multiple_fishing_types(client):
+    """Fishing type is multi-select, stored comma-separated and round-tripped."""
+    tid = "22222222-2222-4222-8222-222222222222"
+    r = client.post("/api/trips", json={"id": tid, "date": "2026-06-30",
+                                        "water_body": "Multi Creek",
+                                        "fishing_type": "fly,tenkara,wade"})
+    assert r.status_code == 201
+    assert data(client.get(f"/api/trips/{tid}"))["fishing_type"] == "fly,tenkara,wade"
+    client.delete(f"/api/trips/{tid}")
+
+
 def test_pin_filters(client):
     pid = "33333333-3333-4333-8333-333333333333"
     r = client.post("/api/pins", json={"id": pid, "name": "Test Pin", "latitude": 35.7,

@@ -7,13 +7,13 @@
 <form id="trip-form" data-trip-id="{{ trip_id or '' }}">
   <fieldset>
     <legend>Trip</legend>
-    <div class="field-row">
-      <div class="field"><label>Date *</label><input type="date" name="date" required /></div>
-      <div class="field"><label>Fishing type</label>
-        <select name="fishing_type">
-          <option value="">—</option>
-          {% for t in choices.fishing_types %}<option value="{{ t }}">{{ t }}</option>{% endfor %}
-        </select>
+    <div class="field"><label>Date *</label><input type="date" name="date" required /></div>
+    <div class="field">
+      <label>Fishing type <span class="muted">(choose any)</span></label>
+      <div class="chips">
+        {% for t in choices.fishing_types %}
+        <label><input type="checkbox" name="fishing_type" value="{{ t }}" /> {{ t }}</label>
+        {% endfor %}
       </div>
     </div>
     <div class="field-row">

@@ -15,6 +15,8 @@
     const fd = new FormData(form());
     const data = {};
     fd.forEach((v, k) => { data[k] = typeof v === 'string' ? v.trim() : v; });
+    // Fishing type is a multi-select (checkbox group) — store comma-separated.
+    data.fishing_type = fd.getAll('fishing_type').join(',');
     if (tripId()) data.id = tripId();
     return data;
   }
@@ -24,7 +26,13 @@
     try { trip = await Data.getTrip(id); } catch (e) { return; }
     const f = form();
     Object.entries(trip).forEach(([k, v]) => {
-      if (f.elements[k] && v != null) f.elements[k].value = v;
+      if (k === 'fishing_type' || v == null || !f.elements[k]) return;
+      f.elements[k].value = v;
+    });
+    // Re-check the fishing-type boxes from the comma-separated value.
+    const types = (trip.fishing_type || '').split(',').map(s => s.trim()).filter(Boolean);
+    f.querySelectorAll('input[name="fishing_type"]').forEach(cb => {
+      cb.checked = types.includes(cb.value);
     });
   }
 

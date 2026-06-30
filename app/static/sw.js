@@ -9,7 +9,7 @@
  *   - /api/*: always network. Data durability is handled by IndexedDB + the
  *     sync queue, not by caching API responses.
  */
-const VERSION = 'v1';
+const VERSION = 'v2';
 const SHELL_CACHE = `fa-shell-${VERSION}`;
 const STATIC_CACHE = `fa-static-${VERSION}`;
 const TILE_CACHE = 'fa-tiles';

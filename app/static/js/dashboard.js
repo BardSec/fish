@@ -34,7 +34,7 @@
       ? data.recent_trips.map(t => `
         <a class="card tap" href="/trips/${t.id}" style="display:block">
           <strong>${escapeHtml(t.water_body || 'Trip')}</strong>
-          <div class="muted">${fmtDate(t.date)} · ${escapeHtml(t.fishing_type || '')} · ${t.fish_count || 0} fish</div>
+          <div class="muted">${[fmtDate(t.date), (t.fishing_type || '').split(',').map(s => s.trim()).filter(Boolean).join(', '), `${t.fish_count || 0} fish`].filter(Boolean).map(escapeHtml).join(' · ')}</div>
         </a>`).join('')
       : '<p class="muted">No trips yet. Log your first one!</p>';
 

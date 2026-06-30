@@ -42,7 +42,7 @@
       <div class="card">
         <div class="muted">${fmtDate(trip.date)} · ${[trip.start_time, trip.end_time].filter(Boolean).join('–')}</div>
         <div style="margin:6px 0">
-          ${trip.fishing_type ? `<span class="pill accent">${escapeHtml(trip.fishing_type)}</span>` : ''}
+          ${(trip.fishing_type || '').split(',').map(s => s.trim()).filter(Boolean).map(ft => `<span class="pill accent">${escapeHtml(ft)}</span>`).join('')}
           <span class="pill">${trip.fish_count || (trip.catches || []).length} fish</span>
         </div>
         ${field('Access', trip.access_point)}${field('Location', trip.general_location)}
